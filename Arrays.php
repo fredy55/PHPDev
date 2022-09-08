@@ -24,7 +24,7 @@
 // //echo $arr2[1];
 
 // //Get the length of array
-// $arrLen = count($arr2);
+$arrLen = count($arr2);
 
 // for($x=0; $x<$arrLen; $x++){
 //     echo "<h1>Name {$x} is: {$arr2[$x]}</h1>"; 
@@ -65,12 +65,20 @@ $arr1 = [
         'status'=>2
     ],
     [
+        'name'=> 'Jane',
+        'age'=> 23,
+        'gender'=>'female',
+        'status'=>1
+    ],
+    [
         'name'=> 'Kelvin',
         'age'=> 28,
         'gender'=>'male',
         'status'=>0
     ]
 ];
+
+//From $arr1 above, use a foreach the extract the details of students above 25 years
 
 //var_dump($arr1);
 // foreach ($arr1 as $value) {
@@ -91,19 +99,29 @@ $arr2 = array(
 //      echo '<br />';
 // }
 
-$arr3= [
-    'a'=>[1,4],
-    'b'=>[2,5],
-    'c'=>[6,0],
-];
+// $arr3= [
+//     'a'=>[1,4],
+//     'b'=>[2,5],
+//     'c'=>[6,0],
+// ];
 
-foreach ($arr3 as $key => $value) {
-    echo "{$key}=>";
-    for($col=0; $col<count($value); $col++){
-        echo $value[$col].', ';
-    }
-    echo '<br />';
-}
+// foreach ($arr3 as $key => $value) {
+//     echo "{$key}=>";
+//     for($col=0; $col<count($value); $col++){
+//         echo $value[$col].', ';
+//     }
+//     echo '<br />';
+// }
+
+
+// foreach($arr1 as $d){
+
+//     if($d["age"] > 25){
+//          echo "{$d["name"]} is above 25 years.<br >";
+//     };
+// }
+
+//Array Functions
 
 
 
