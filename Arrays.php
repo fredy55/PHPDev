@@ -32,12 +32,12 @@ $arrLen = count($arr2);
 
 //Associate Arrays
 // $arr1 = array('maths'=>45, 'english'=>78, 'physics'=>67, 'agric'=>53);
-// $arr2 = [
-//     'name'=> 'John',
-//     'age'=> 34,
-//     'gender'=>'female',
-//     'status'=>1
-// ];
+$arr2 = [
+    'name'=> 'Kelvine',
+    'age'=> 34,
+    'gender'=>'female',
+    'status'=>1
+];
 
 // $array3 = [];
 // $array3['barca'] = 4;
