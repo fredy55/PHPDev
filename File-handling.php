@@ -35,7 +35,7 @@ $furl = "private/students.txt";
 
 // $myfile = fopen($furl, "a") or die('Unable to open file'); //open file
 
-// $fcontent = "\n I like their performance.";
+//$fcontent = "\n I like their performance.";
 
 // fwrite($myfile, $fcontent); //read file content
 
