@@ -18,8 +18,17 @@ echo preg_match($pattern, $input);
  * [^abc]
  * [0-9]
  * 
- * METACHARACTER
+ * METACHARACTER 
  * | 
  * .
- * ^
+ * ^ => start
+ * $ => end
+ * \s => string
+ * \b => whitespace
+ * 
+ * QUALIFIERS
+ * n+
+ * 
  */
+
+ // Give five (5) examples of regular expressions.
