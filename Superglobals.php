@@ -10,7 +10,7 @@
  * - SERVER => $_SERVER[]
  * - FILES => $_FILES[]
  * -  SESSION => $_SESSION[]
- * - GLOBAL  => 
+ * - $GLOBALS  => 
  */
 
  //2) For a given array of integer [2,45,789,5341,56,1], create 
@@ -18,3 +18,33 @@
 //    number of digits. (ans:3)
 
 //getEvenDigits($arr)
+
+//$GLOBALS
+
+// $x = 4; //Global scope
+// $y = 5;
+
+// function sum(){
+//     $GLOBALS['z'] = $GLOBALS['x'] + $GLOBALS['y']; 
+// }
+
+// sum();
+// echo $z;
+
+// Local => Global => Superglobal
+
+//COOKIES
+// $name = 'spark';
+// $value = 'This shoe is very good.';
+// $duration = time() + (60*60*24);
+// setcookie($name, $value, $duration, '/'); //Setting a cookie
+
+// setcookie($name, $value, time() - (60*60*28), '/'); //unset cookie with past time
+
+// //Retrieve the cookie isset();
+// if(isset($_COOKIE['spark'])){
+//    $coky = $_COOKIE['spark'];
+//    echo $coky;
+// }
+
+
