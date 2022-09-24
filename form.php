@@ -17,12 +17,36 @@
         <hr />
         <h5>
             <?php 
-                session_unset();
-                session_destroy();
+               if(isset($_SESSION['error'])){
+                    echo $_SESSION['error'];
+               }elseif (isset($_SESSION['img_url'])) {
+                  echo '<img src="'.$_SESSION['img_url'].'" width="150px" />';
+               }
+            ?>
+        </h5>
+        <form action="file-upload.php" method="post" enctype="multipart/form-data">
+            <fieldeset>
+                <legend>File Upload</legend>
+                <p>
+                    <!-- <strong>Password: </strong> -->
+                    <input type="file" name="image" required/>
+                    <h6>Max. file size is 2MB (png/pdf/jpg).</h6>
+                </p>
 
-                if(isset($_SESSION['user'])){
-                    echo $_SESSION['user'];
-                }
+                <p>
+                    <button type="submit">Upload</button>
+                </p>
+            </fieldeset>
+        </form>
+
+        <!-- <h5>
+            <?php 
+                // session_unset();
+                // session_destroy();
+
+                // if(isset($_SESSION['user'])){
+                //     echo $_SESSION['user'];
+                // }
                 
             ?>
         </h5>
@@ -42,7 +66,7 @@
                     <button type="submit">Submit</button>
                 </p>
             </fieldeset>
-        </form>
+        </form> -->
 
     </body>
 </html>
