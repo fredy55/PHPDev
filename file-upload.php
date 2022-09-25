@@ -33,6 +33,7 @@ if(isset($_FILES['image'])){
             echo '</pre>';
             $file_location = "uploads/{$imgName}";
             //session_destroy();
+            session_unset();
 
            //save uploaded file
            move_uploaded_file($imgTmp, $file_location);
