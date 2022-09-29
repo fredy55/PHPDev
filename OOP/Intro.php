@@ -29,6 +29,8 @@
     function speed(int $value, string $brand){
         return "The speed of {$this->colour} {$brand} cars is {$value}km/hr";
     }
+
+    
  }
 
  //Instantiation of the 'Car' class
@@ -37,3 +39,15 @@
 
  echo $Honda->speed(80, 'Honda Pilot').'<br>';
 //  echo $Toyota->speed(75, 'Toyota Venza');
+
+
+//2) Assignment
+//FizzBazz
+/**
+ * 5 - Fizz
+ * 7 - Bazz
+ * 
+ * 5 & 7 - FizzBazz
+ * 
+ * 1 - 100
+ */
