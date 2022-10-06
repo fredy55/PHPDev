@@ -44,18 +44,44 @@
 // $n = 3;
 // echo findProduct(3, $n);
 
-$arr1 = array(1, 3, 4, 5, 8, 7, 4, 10, 14);
+//$arr1 = array(1, 3, 4, 5, 8, 7, 4, 10, 14);
 
 //Create a function to display all the even numbers in an array of integers
 
-function evenNum(array $arr1)
-{
-    for($i=0; $i<count($arr1); $i++){
-        if($arr1[$i]%2==0){
-            echo '<h1>'.$arr1[$i].'</h1>';
-        };
-    }
+// function evenNum(array $arr1)
+// {
+//     for($i=0; $i<count($arr1); $i++){
+//         if($arr1[$i]%2==0){
+//             echo '<h1>'.$arr1[$i].'</h1>';
+//         };
+//     }
+// }
+
+// evenNum($arr1);
+
+
+
+//Callback functions
+function getMultiply(int $a){
+    return pow($a, 2);
 }
 
-evenNum($arr1);
+//Ananymous function
+$getMultiply = function(int $a){
+                    return pow($a, 2);
+                };
+                
+//Arrow function
+$getMultiply = fn($a)=> pow($a, 2);
+
+$arr1 = array(1, 3, 4, 5, 8, 7);
+//$arrChange = array_map("getMultiply", $arr1);
+// $arrChange = array_map(function(int $a){
+//                         return pow($a, 2);
+//                     }, $arr1);
+
+$arrChange = array_map(fn($a)=> pow($a, 2), $arr1);
+echo '<pre>';
+print_r($arrChange);
+echo '</pre>';
 
