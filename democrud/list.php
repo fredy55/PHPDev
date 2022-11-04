@@ -19,7 +19,7 @@
             $fetch = $conn->query("SELECT * FROM `users` ORDER BY `first_name` ASC");
         ?>
 
-        <table width="600px" border="1" cellpadding="3">
+        <table width="800px" border="1" cellpadding="3">
             <tr>
                 <th>Full Name</th>
                 <th>Email</th>
@@ -36,12 +36,19 @@
                 <td><?php echo $row['email']; ?></td>
                 <td><?php echo $row['status']==1?'Active':'Inactive'; ?></td>
                 <td><?php echo $row['date']; ?></td>
-                <td>Edit</td>
-                <td>Delete</td>
+                <td>
+                    <a href="update.php?id=<?php echo $row['id']; ?>">Edit</a>
+                </td>
+                <td>
+                    <a href="process.php?delid=<?php echo $row['id']; ?>">
+                        Delete
+                    </a>
+                </td>
             </tr>
             <?php 
              }
             ?>
         </table>
+        
     </body>
 </html>
