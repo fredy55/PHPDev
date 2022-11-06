@@ -6,20 +6,36 @@ class MyDb{
     private $connect;
     
     public function __construct(){
-
+        $this->openConnect();
     }
 
     public function openConnect(){
         $this->connect = new mysqli(HOST, USER, PASSWORD, DATABASE);
     }
 
-    public function fetchData(){
+    /**
+     * Validate login form data
+     * @param string $sql
+     * 
+     * @return string
+     */
+    public function loginValidate(string $sql): bool
+    {
        //Retreive data from DB
-       $fetch = $this->connect->query("SELECT * FROM `users` ORDER BY `first_name` ASC");
+       $validate = $this->connect->query($sql);
+
+       //echo $validate->num_rows;
+       
+       if($validate->num_rows === 1 ){
+           return true;
+       }else{
+          return false;
+       }
     }
 
+    public function closeConnect(){
+        $this->connect->close();
+    }
 
 }
 
-$mydb = new MyDb();
-$mydb->openConnect();

@@ -31,7 +31,7 @@
                     </tr>
                     <tr>
                         <th></th>
-                        <td><button type="submit">Upload</button></td>
+                        <td><button type="submit">Submit</button></td>
                     </tr>
                 </table>
             </fieldeset>
