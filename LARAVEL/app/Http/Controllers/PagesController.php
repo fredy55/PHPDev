@@ -19,4 +19,16 @@ class PagesController extends Controller
 
         return view('hello', ['title'=>$title, 'students'=>$list]);
     }
+
+    public function homepage(){
+        
+
+        return view('index');
+    }
+
+    public function about(){
+        
+
+        return view('about');
+    }
 }

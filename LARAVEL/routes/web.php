@@ -14,9 +14,11 @@ use App\Http\Controllers\PagesController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
+Route::get('/', [PagesController::class, 'homepage']);
+Route::get('/about-us', [PagesController::class, 'about']);
 Route::get('/greetings', [PagesController::class, 'index']);
 
