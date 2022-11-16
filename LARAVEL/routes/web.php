@@ -18,7 +18,26 @@ use App\Http\Controllers\PagesController;
 //     return view('welcome');
 // });
 
-Route::get('/', [PagesController::class, 'homepage']);
-Route::get('/about-us', [PagesController::class, 'about']);
-Route::get('/greetings', [PagesController::class, 'index']);
+Route::get('/', [PagesController::class, 'homepage'])->name('home');
+Route::fallback([PagesController::class, 'error404'])->name('error404');
+
+Route::controller(PagesController::class)
+->name('pages.')
+->prefix('pages')
+->group(function(){
+    Route::get('/about-us', 'about')->name('about');
+    Route::get('/greetings', 'index')->name('greet'); 
+});
+
+
+
+//Route::method('url', action)->name();
+
+/**
+ * get - fetch data
+ * post - create or save
+ * put - update all
+ * patch - update few or all
+ * delete - delete
+ */
 
