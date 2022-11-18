@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PagesController;
+use App\Http\Controllers\ProductsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,15 @@ Route::controller(PagesController::class)
 ->group(function(){
     Route::get('/about-us', 'about')->name('about');
     Route::get('/greetings', 'index')->name('greet'); 
+});
+
+
+#-------------- Product routes ---------------------#
+Route::controller(ProductsController::class)
+->name('product.')
+->prefix('products')
+->group(function(){
+    Route::get('/', 'index')->name('list'); 
 });
 
 
