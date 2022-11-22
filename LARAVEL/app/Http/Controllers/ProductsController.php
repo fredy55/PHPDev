@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\Models\Product;
 
 
@@ -25,13 +26,28 @@ class ProductsController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $data['product'] = Product::find($id);
+
+        //dd($data['product']);
+
+        return view("products.details", $data);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        return view("products.create");
     }
 
     /**
@@ -42,18 +58,36 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+       // dd($request->all());
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        $validate = Validator::make($request->all(), [
+            'name'=>'required|string|unique:products',
+            'price'=>'required|numeric',
+            'description'=>'required|string',
+        ]);
+
+        if($validate->fails()){
+            return redirect()->route('product.add');
+        }
+
+        $input = $validate->validated();
+        
+        $product = new Product;
+        $product->name = $input['name'];
+        $product->price = $request->post('price');
+        $product->description = $request->input('pdescribe');
+
+        $exisQuery = Product::where('name', $request->post('name'));
+        
+        if($exisQuery->doesntExist()){
+            if($product->save()){
+                return redirect()->route('home');
+            }else{
+                return redirect()->route('product.add');
+            }
+        }else {
+            return redirect()->route('product.add');
+        }
     }
 
     /**
@@ -64,7 +98,11 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data['product'] = Product::find($id);
+
+        //dd($data['product']);
+
+        return view("products.edit", $data);
     }
 
     /**
@@ -74,9 +112,20 @@ class ProductsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        //dd($request);
+
+        $product = Product::find($request->post('id'));
+        $product->name = $request->post('pname');
+        $product->price = $request->post('price');
+        $product->description = $request->post('pdescribe');
+        
+        if($product->save()){
+            return redirect()->route('home');
+        }else{
+            return redirect()->route('product.add');
+        }
     }
 
     /**
@@ -87,6 +136,12 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = Product::find($id);
+        
+        if($product->delete()){
+            return redirect()->route('home');
+        }else{
+            return redirect()->route('home');
+        }
     }
 }

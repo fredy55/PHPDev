@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Product;
 
 class PagesController extends Controller
 {
+    private array $data;
+    
     public function index(){
         //$title = env("APP_NAME");
         $title = 'Today\'s Class';
@@ -21,9 +24,9 @@ class PagesController extends Controller
     }
 
     public function homepage(){
-        
+        $data['products'] = Product::all();
 
-        return view('index');
+        return view('home', $data);
     }
 
     public function about(){

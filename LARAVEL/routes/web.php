@@ -37,6 +37,12 @@ Route::controller(ProductsController::class)
 ->prefix('products')
 ->group(function(){
     Route::get('/', 'index')->name('list'); 
+    Route::get('/details/{id}', 'show')->name('details');
+    Route::get('/add', 'create')->name('add');
+    Route::post('/save', 'store')->name('save');
+    Route::get('/edit/{id}', 'edit')->name('edit');
+    Route::post('/update', 'update')->name('update');
+    Route::get('/delete/{id}', 'destroy')->name('delete');
 });
 
 
