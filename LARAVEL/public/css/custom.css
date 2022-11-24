@@ -16,3 +16,27 @@ body{
     border-right: 1px solid #aaa;
     padding-right: 20px;
 }
+
+.success{
+    padding: 0px 10px;
+    background-color: rgb(155, 233, 174);
+    color: black;
+    margin: 10px 5px;
+}
+
+.success h4{
+    padding: 6px 0px;
+    font-size: 15px;
+}
+
+.warning{
+    padding: 0px 10px;
+    background-color: rgb(231, 184, 114);
+    color: black;
+    margin: 10px 5px;
+}
+
+.warning h4{
+    padding: 6px 0px;
+    font-size: 15px;
+}

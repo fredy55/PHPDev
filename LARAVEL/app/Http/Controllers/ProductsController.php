@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Session;
 use App\Models\Product;
 
 
@@ -58,16 +59,34 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-       // dd($request->all());
+        if(!is_null(imgUpload('image', $request))){
+           $imgArr = imgUpload('image', $request);
+        }else{
+           return back()->with('warning', 'Product image NOT uploaded!'); 
+        }
+             
+
+        //dd($imgName);
+        
+        // $exisQuery = Product::where('name', $request->post('name'));
+        
+        // if($exisQuery->exists())  
+        //     return back()->with('warning', 'Product already exists!');
+
 
         $validate = Validator::make($request->all(), [
             'name'=>'required|string|unique:products',
             'price'=>'required|numeric',
-            'description'=>'required|string',
+            'pdescribe'=>'required|string',
         ]);
 
         if($validate->fails()){
-            return redirect()->route('product.add');
+            //$request->session()->put('data', 'validation Error!');
+            //Session::put('data', 'validation Error!');
+            //session()->put('data', ['validation Error!', 'jkwjkwj']);
+            //session()->forget('data');
+           
+            return redirect()->route('product.add')->with('warning', 'Validation error: '.$validate->errors()->first());
         }
 
         $input = $validate->validated();
@@ -75,18 +94,13 @@ class ProductsController extends Controller
         $product = new Product;
         $product->name = $input['name'];
         $product->price = $request->post('price');
+        $product->img_url = $imgArr['imgUrl'];
         $product->description = $request->input('pdescribe');
-
-        $exisQuery = Product::where('name', $request->post('name'));
         
-        if($exisQuery->doesntExist()){
-            if($product->save()){
-                return redirect()->route('home');
-            }else{
-                return redirect()->route('product.add');
-            }
-        }else {
-            return redirect()->route('product.add');
+        if($product->save()){
+            return redirect()->route('home')->with('success', 'Product saved successfully!');
+        }else{
+            return back()->with('warning', 'Product NOT saved!');
         }
     }
 
@@ -114,11 +128,16 @@ class ProductsController extends Controller
      */
     public function update(Request $request)
     {
-        //dd($request);
+        
+        $imgArr = imgUpload('image', $request);
+        
 
         $product = Product::find($request->post('id'));
         $product->name = $request->post('pname');
         $product->price = $request->post('price');
+        if(!is_null($imgArr)){
+            $product->img_url = $imgArr['imgUrl'];
+        }
         $product->description = $request->post('pdescribe');
         
         if($product->save()){

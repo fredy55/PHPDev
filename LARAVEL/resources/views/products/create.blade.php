@@ -15,7 +15,19 @@
         <a href="{{ route('home') }}" type="button">Home</a>
         <hr />
 
-        <form action="{{ route('product.save') }}" method="POST">
+        @if (Session::has('success'))
+            <div class="success">
+                <h4>{{ Session::get('success') }}</h4>
+            </div>
+        @endif
+
+        @if (Session::has('warning'))
+            <div class="warning">
+                <h4>{{ Session::get('warning') }}</h4>
+            </div>
+        @endif
+        
+        <form action="{{ route('product.save') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <fieldeset>
                 <legend>Add Product</legend>
@@ -32,6 +44,11 @@
                         <td colspan="2">
                             <strong>Description</strong><br>
                             <textarea name="pdescribe" cols="40" rows="3"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input type="file" name="image" required/>
                         </td>
                     </tr>
                     <tr>

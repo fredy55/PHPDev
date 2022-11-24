@@ -15,7 +15,7 @@
         <a href="{{ route('home') }}" type="button">Home</a>
         <hr />
 
-        <form action="{{ route('product.update') }}" method="POST">
+        <form action="{{ route('product.update') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <fieldeset>
                 <legend>Add Product</legend>
@@ -33,6 +33,11 @@
                         <td colspan="2">
                             <strong>Description</strong><br>
                             <textarea name="pdescribe" cols="40" rows="3">{{ $product->description }}</textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <input type="file" name="image"/>
                         </td>
                     </tr>
                     <tr>

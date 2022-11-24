@@ -16,6 +16,7 @@
         <hr />
 
            <div class="details">
+                <p><img src="{{ asset($product->img_url) }}" alt="{{ $product->name }} Image" style="width: 150px;" /></p>
                 <p><strong>{{ $product->name }}</strong></p>
                 <p><span>&#8358;{{ number_format($product->price, 2) }}</span></p>
                 <p><address>{{ $product->description }}</address></p>
