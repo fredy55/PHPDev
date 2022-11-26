@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,19 @@ Route::controller(ProductsController::class)
     Route::get('/edit/{id}', 'edit')->name('edit');
     Route::post('/update', 'update')->name('update');
     Route::get('/delete/{id}', 'destroy')->name('delete');
+});
+
+#-------------- Customer routes ---------------------#
+Route::controller(CustomerController::class)
+->name('customer.')
+->prefix('customers')
+->group(function(){
+    Route::get('/add', 'create')->name('form'); 
+    Route::post('/save', 'store')->name('save');
+    Route::get('/login', 'loginForm')->name('login');
+    Route::post('/validate', 'loginValidate')->name('validate');
+    
+    Route::get('/dashboard', 'dashboard')->name('dashboard');
 });
 
 
