@@ -90,6 +90,9 @@ class ProductsController extends Controller
         }
 
         $input = $validate->validated();
+
+        $prodQuery = Product::where('name', $input['name']);
+        if($prodQuery->exists()) return back()->with('warning', 'Product already exist!');
         
         $product = new Product;
         $product->name = $input['name'];

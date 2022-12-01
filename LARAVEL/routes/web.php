@@ -39,11 +39,15 @@ Route::controller(ProductsController::class)
 ->group(function(){
     Route::get('/', 'index')->name('list'); 
     Route::get('/details/{id}', 'show')->name('details');
-    Route::get('/add', 'create')->name('add');
-    Route::post('/save', 'store')->name('save');
-    Route::get('/edit/{id}', 'edit')->name('edit');
-    Route::post('/update', 'update')->name('update');
-    Route::get('/delete/{id}', 'destroy')->name('delete');
+
+    Route::middleware('auth:customer')
+    ->group(function(){
+        Route::get('/add', 'create')->name('add');
+        Route::post('/save', 'store')->name('save');
+        Route::get('/edit/{id}', 'edit')->name('edit');
+        Route::post('/update', 'update')->name('update');
+        Route::get('/delete/{id}', 'destroy')->name('delete');
+    });
 });
 
 #-------------- Customer routes ---------------------#
@@ -56,7 +60,11 @@ Route::controller(CustomerController::class)
     Route::get('/login', 'loginForm')->name('login');
     Route::post('/validate', 'loginValidate')->name('validate');
     
-    Route::get('/dashboard', 'dashboard')->name('dashboard');
+    Route::middleware('auth:customer')
+    ->group(function(){
+        Route::get('/dashboard', 'dashboard')->name('dashboard');
+        Route::get('/logout', 'logout')->name('logout');
+    });
 });
 
 
