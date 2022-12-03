@@ -17,6 +17,7 @@ class CustomerController extends Controller
      */
     public function loginForm()
     {
+        
         return view('customers.login');
     }
 

@@ -22,4 +22,10 @@ class Product extends Model
     ];
 
     public $timestamps = true; 
+    
+
+    public function category(){
+        return $this->hasMany(Category::class, 'category_id', 'category_id');
+    }
+
 }

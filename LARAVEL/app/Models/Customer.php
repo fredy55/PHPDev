@@ -36,4 +36,5 @@ class Customer extends Authenticatable
     ];
 
     public $timestamps = true;
+
 }

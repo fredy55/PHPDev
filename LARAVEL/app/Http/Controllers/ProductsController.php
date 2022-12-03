@@ -21,8 +21,6 @@ class ProductsController extends Controller
     {
         $data['products'] = Product::all();
 
-        //dd($data['products']);
-
         return view("products.index", $data);
     }
 
@@ -35,8 +33,12 @@ class ProductsController extends Controller
     public function show($id)
     {
         $data['product'] = Product::find($id);
+        // $data['product'] = Product::where('products.product_id', $id)
+        //                 ->join('categories as cat', 'cat.category_id', '=', 'products.category_id')
+        //                 ->select('products.*', 'cat.category')
+        //                 ->first();
 
-        //dd($data['product']);
+        //dd($data['product']->category);
 
         return view("products.details", $data);
     }

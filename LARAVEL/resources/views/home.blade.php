@@ -13,12 +13,12 @@
             <h1>Welcome to Demo Product CRUD App</h1>
         <hr />
         <a href="{{ route('home') }}" type="button">Home</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-        @auth
+        @auth('customer')
             <a href="{{ route('product.add') }}" type="button">Add Product</a>&nbsp;&nbsp;|&nbsp;&nbsp;
             <a href="{{ route('customer.logout') }}" type="button">Logout</a>
         @endauth
         
-        @guest
+        @guest('customer')
           <a href="{{ route('customer.login') }}" type="button">Login</a>&nbsp;&nbsp;|&nbsp;&nbsp;
         @endguest
         <hr />
@@ -46,9 +46,10 @@
                             </a>
                         </strong>
                         <span>&#8358;{{ number_format($item->price, 2) }}</span>
-                        @auth
-                        <span><a href="{{ route('product.edit', ['id'=>$item->product_id]) }}">Edit</a></span>
-                        <span><a href="{{ route('product.delete', ['id'=>$item->product_id]) }}">Delete</a></span>
+                        {{-- <span>{{ $item->category }}</span> --}}
+                        @auth('customer')
+                            <span><a href="{{ route('product.edit', ['id'=>$item->product_id]) }}">Edit</a></span>
+                            <span><a href="{{ route('product.delete', ['id'=>$item->product_id]) }}">Delete</a></span>
                         @endauth
                     </p>
                 </div>
