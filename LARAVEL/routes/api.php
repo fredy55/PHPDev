@@ -20,6 +20,12 @@ use App\Http\Controllers\API\ProductApiController;
 // });
 
 
-Route::get('/products', [ProductApiController::class, 'list']);
-Route::get('/products/{id}', [ProductApiController::class, 'details']);
+Route::group(['prefix' => 'v1'], function(){
+    Route::controller(ProductApiController::class)->group(function(){
+        Route::get('/products', 'list');
+        Route::get('/products/{id}', 'details');
+        Route::post('/products', 'saveProduct');
+        Route::put('/product/update', 'updateProduct');
+    });
+});
 
