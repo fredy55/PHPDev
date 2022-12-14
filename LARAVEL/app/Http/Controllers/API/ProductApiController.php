@@ -39,6 +39,8 @@ class ProductApiController extends Controller
     /**
      * Single product details
      * 
+     * @param int $id
+     * 
      * @return JsonResponse
      */
     public function details(int $id):JsonResponse
@@ -62,6 +64,8 @@ class ProductApiController extends Controller
 
     /**
      * Add new product
+     * 
+     * @param Illuminate\Http\Request $request
      * 
      * @return JsonResponse
      */
@@ -126,17 +130,19 @@ class ProductApiController extends Controller
     }
 
     /**
-     * Add new product
+     * Updated product
+     * 
+     * @param Illuminate\Http\Request $request
+     * @param int $id
      * 
      * @return JsonResponse
      */
-    public function updateProduct(Request $request):JsonResponse
+    public function updateProduct(Request $request, int $id):JsonResponse
     {
        try {
          
           $validate = Validator::make($request->all(), [
-             'name'=>'required|string|unique:products', 	
-             'prodId'=>'required|numeric',
+             'name'=>'required|string|unique:products', 
              'catId'=>'required|numeric',
              'price'=>'required|numeric',
              'pdescribe'=>'required|string',
@@ -152,7 +158,7 @@ class ProductApiController extends Controller
  
          $input = $validate->validated();
  
-         $prodQuery = Product::where('product_id', $input['prodId']);
+         $prodQuery = Product::where('product_id', $id);
          if(!$prodQuery->exists()){
             return response()->json([
                 'status' => 'warning',
@@ -162,18 +168,20 @@ class ProductApiController extends Controller
              
          }
          
-         $product = $prodQuery->update([
+         $data = [
             'category_id' => $input['catId'],
             'name' => $input['name'],
             'price' => $request->post('price'),
             'description' => $request->input('pdescribe')
-         ]);
+         ];
+
+         $prodQuery->update($data);
 
          if($product){
              return response()->json([
                 'status' => 'success',
                 'message' => 'Product updated successfully!',
-                'data' => $product
+                'data' => $data
              ], 200);
          }else{
              return response()->json([
@@ -189,6 +197,39 @@ class ProductApiController extends Controller
                 'status' => 'error',
                 'message' => 'Product NOT updated: '.$e->getMessage(),
                 'data' => null
+            ], 400);
+        }
+    }
+
+    /**
+     * Delete product
+     * 
+     * @param int $id
+     * 
+     * @return JsonResponse
+     */
+    public function deleteProduct(int $id):JsonResponse
+    {
+        try {
+            $prodQuery = Product::where('product_id', $id);
+
+           if($prodQuery->exists()){
+                $prodQuery->delete();
+
+                return response()->json([
+                    'status' => 'success',
+                    'message' => 'Product deleted successfully!'
+                 ], 200);
+            }else{
+                return response()->json([
+                    'status' => 'warning',
+                    'message' => 'Product does NOT exist!'
+                ], 400);
+           }
+        } catch (Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Error occured:'.$e->getMessage()
             ], 400);
         }
     }
