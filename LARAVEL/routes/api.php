@@ -27,9 +27,9 @@ Route::group(['prefix' => 'v1'], function(){
     ], function () {
         Route::controller(AuthController::class)->group(function(){
             Route::post('/login', 'login');
-            // Route::post('logout', 'logout');
-            // Route::post('refresh', 'refresh');
-            // Route::post('me', 'me');
+            Route::post('logout', 'logout');
+            Route::post('/refresh', 'refresh');
+            Route::post('/user', 'getUser');
         });
     });
     

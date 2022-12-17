@@ -32,10 +32,59 @@ class AuthController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
+        //Get the logged in user
+        $user = auth('api')->user();
+        $headers = [
+            'Authorization' => 'Bearer '.$token,
             'expires_in' => auth()->factory()->getTTL() * 60
-        ]);
+        ];
+
+        return response()->json($user, 200, $headers);
+    }
+
+    /**
+     * Refresh a token.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function refresh()
+    {
+        //Get the logged in user
+        $user = auth('api')->user();
+        $token = auth()->refresh();
+
+        $headers = [
+            'Authorization' => 'Bearer '.$token,
+            'expires_in' => auth()->factory()->getTTL() * 60
+        ];
+
+        return response()->json($user, 200, $headers);
+    }
+
+    /**
+     * Get the authenticated User.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getUser()
+    {
+        //Get the logged in user
+        return response()->json(
+            auth('api')->user(), 
+            200
+        );
+    }
+
+    /**
+     * Log the user out (Invalidate the token).
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function logout()
+    {
+        auth()->logout();
+
+        return response()->json([
+            'message' => 'Successfully logged out']);
     }
 }
